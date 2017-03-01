@@ -108,11 +108,10 @@
                  name: 'BarcodeScanner',
                  component: BarcodeScanner,
                  params: {
-                     //从详情页获取扫描的结果url
-                     getUrl: (url) => {
+                     barcodeCallback: (code) => {
                          Alert.alert(
                              'Alert Title',
-                             alertMessage,
+                             code
                          )
                      }
                  }

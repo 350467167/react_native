@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {
     StyleSheet,
     Text,
-    Vibration,
     View,
     Alert
 } from 'react-native';
@@ -26,38 +25,28 @@ export default class BarcodeScanner extends Component {
     }
 
     barcodeReceived(e) {
-        if (e.data !== this.state.barcode || e.type !== this.state.type) Vibration.vibrate();
-        this.setState({
-            barcode: e.data,
-            text: `${e.data} (${e.type})`,
-            type: e.type,
-        });
         const { navigator } = this.props;
         if (this.props.getUrl) {
-            let url = this.state.text;
-            this.props.getUrl(url);
+            this.props.barcodeCallback(e.data);
         }
+
         if (navigator) {
             navigator.pop({
-                name: 'barcode'
+                name: 'BarcodeScanner'
             })
         }
     }
 
     render() {
         return (
-            <View style={styles.Container}>
-                <AndroidScanner
+            <AndroidScanner
                   onBarCodeRead={this.barcodeReceived.bind(this)}
                   style={{ flex: 1 }}
                   torchMode={this.state.torchMode}
                   cameraType={this.state.cameraType}
-                />
-                <View style={styles.statusBar}>
-                  <Text style={styles.statusBarText}>{this.state.text}</Text>
-                </View>
+                >
                 <LoginButton name='返回' onPressCallback={ () => this.onPressCallback()}/>
-            </View>
+            </AndroidScanner>
         );
     }
 
@@ -75,13 +64,5 @@ export default class BarcodeScanner extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    statusBar: {
-        height: 100,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    statusBarText: {
-        fontSize: 20,
     }
 });

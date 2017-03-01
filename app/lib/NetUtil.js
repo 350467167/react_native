@@ -11,7 +11,6 @@ let NetUtil = {
 
         fetch(url, fetchOptions)
             .then((response) => {
-                console.log('response' + response);
                 return response != null ? response.json() : {};
             })
             .then((responseData) => {
