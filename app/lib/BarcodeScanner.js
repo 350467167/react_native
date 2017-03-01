@@ -25,6 +25,13 @@ export default class BarcodeScanner extends Component {
     }
 
     barcodeReceived(e) {
+        if (e.data !== this.state.barcode || e.type !== this.state.type) Vibration.vibrate();
+        this.setState({
+            barcode: e.data,
+            text: `${e.data} (${e.type})`,
+            type: e.type,
+        });
+
         const { navigator } = this.props;
         if (this.props.getUrl) {
             this.props.barcodeCallback(e.data);
@@ -45,6 +52,7 @@ export default class BarcodeScanner extends Component {
                   torchMode={this.state.torchMode}
                   cameraType={this.state.cameraType}
                 >
+                <Text>{this.state.text}</Text>
                 <LoginButton name='返回' onPressCallback={ () => this.onPressCallback()}/>
             </AndroidScanner>
         );
