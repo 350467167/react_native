@@ -3,12 +3,14 @@ import {
     StyleSheet,
     Text,
     Vibration,
-    View
+    View,
+    Alert
 } from 'react-native';
 
 import AndroidScanner from 'react-native-barcodescanner';
 import LoginButton from './LoginButton';
 import OrderList from '../ui/OrderList'
+import OrderDetail from '../ui/OrderDetail'
 // import IosScanner from 'react-native-camera';
 
 export default class BarcodeScanner extends Component {
@@ -62,8 +64,11 @@ export default class BarcodeScanner extends Component {
     onPressCallback() {
         const { navigator } = this.props;
         if (navigator) {
-             navigator.jumpBack();
-         }
+            // navigator.jumpBack();
+            navigator.pop({
+                name: 'BarcodeScanner'
+            })
+        }
     }
 }
 

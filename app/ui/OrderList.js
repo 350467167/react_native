@@ -91,7 +91,7 @@
          const { navigator } = this.props;
          if (navigator) {
              navigator.push({
-                 name: 'Order Detail',
+                 name: 'OrderDetail',
                  component: OrderDetail,
                  params: {
                      rowId: rowId
