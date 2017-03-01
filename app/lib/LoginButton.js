@@ -17,15 +17,14 @@ export default class LoginButton extends Component {
     render() {
         return (
             <TouchableOpacity onPress={this.props.onPressCallback} style={LoginStyles.loginTextView}>
-        <Text style={LoginStyles.loginText} >
-            {this.props.name}
-        </Text>
-      </TouchableOpacity>
+            <Text style={LoginStyles.loginText} >
+                {this.props.name}
+            </Text>
+            </TouchableOpacity>
         );
     }
 }
 const LoginStyles = StyleSheet.create({
-
     loginText: {
         color: '#ffffff',
         fontWeight: 'bold',

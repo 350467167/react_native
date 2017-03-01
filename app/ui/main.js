@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import EditView from '../lib/EditView';
 import LoginButton from '../lib/LoginButton';
-import LoginSuccess from '../ui/LoginSuccess';
+import OrderList from '../ui/OrderList';
 import NetUitl from '../lib/NetUtil';
 export default class LoginActivity extends Component {
   constructor(props) {
@@ -37,7 +37,7 @@ export default class LoginActivity extends Component {
             this.password = text;
         }}/>
         <LoginButton name='登录' onPressCallback={this.onPressCallback}/>
-        <Text style={{color:"#4A90E2",textAlign:'center',marginTop:10}} >忘记密码？</Text>
+        <Text style={{color:"#4A90E2",textAlign:'center',marginTop:10}}>忘记密码？</Text>
       </View>
      </View>
    )
@@ -61,8 +61,8 @@ export default class LoginActivity extends Component {
      const { navigator } = this.props;
      if (navigator) {
        navigator.push({
-         name : 'LoginSuccess',
-         component : LoginSuccess,
+         name : 'OrderList',
+         component : OrderList,
        });
      }
    }
