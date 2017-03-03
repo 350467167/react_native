@@ -1,13 +1,5 @@
-import React, { Component } from 'react';
 import {
-    ToolbarAndroid,
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View,
-    Image,
-    TextInput,
-    TouchableOpacity
+    AppRegistry
 } from 'react-native';
 import Navigator from './app/navigator';
 

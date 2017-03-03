@@ -6,7 +6,7 @@ import {
     Alert
 } from 'react-native';
 
-import AndroidScanner from 'react-native-barcodescanner';
+import AndroidScanner from './AndroidBarcodeScanner';
 import LoginButton from './LoginButton';
 import OrderList from '../ui/OrderList'
 import OrderDetail from '../ui/OrderDetail'

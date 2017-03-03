@@ -15,17 +15,10 @@ export default class ImageButton extends Component {
     render() {
         return (
             <TouchableHighlight onPress={() => this.props.onPress()} >
-            <View style={Styles.button}>
+            <View>
               {this.props.children}
             </View>
             </TouchableHighlight>
         );
     }
 }
-
-const width = Dimensions.get('window').width;
-const Styles = StyleSheet.create({
-    button: {
-        // width: width / 8
-    }
-});

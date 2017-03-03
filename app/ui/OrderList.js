@@ -64,11 +64,9 @@
              <View>
                 <ToolBar
                     navigator={this.props.navigator}
-                    title="订单管理">
-                    <ImageButton onPress={() => this.callCamera()} >
-                        <Image style={{resizeMode: "stretch"}} source={require('../resources/img/search.png')} />
-                    </ImageButton>
-                </ToolBar>
+                    title="订单管理"
+                    icon={require('../resources/img/search.png')} 
+                    iconOnPress={() => this.callCamera()} />
                 <ListView
                     dataSource={this.state.dataSource}
                     renderRow={(rowData) => this.getRowView(rowData)}

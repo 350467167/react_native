@@ -18,19 +18,17 @@ export default class ToolBar extends Component {
     render() {
         return (
             <View style={Styles.toolBar}>
-                <View style={Styles.buttonView}>
                 <ImageButton onPress={() => this.onPress()} >
-                    <Image style={{resizeMode: "stretch"}} source={require('../resources/img/back.png')} />
+                    <Image style={Styles.buttonView} source={require('../resources/img/back.png')} />
                 </ImageButton>
-                </View>
                 <View style={Styles.titleView}>
                 <Text>
                     {this.props.title}
                 </Text>
                 </View>
-                <View style={Styles.buttonView}>
-                {this.props.children}
-                </View>
+                <ImageButton onPress={this.props.iconOnPress} >
+                    <Image style={Styles.buttonView} source={this.props.icon} />
+                </ImageButton>
             </View>
         );
     }
@@ -48,11 +46,11 @@ const Styles = StyleSheet.create({
     toolBar: {
         backgroundColor: '#e9eaed',
         flexDirection: "row",
-        height: 35,
-        paddingTop: 1
+        height: 35
     },
     buttonView: {
-        width: width / 8
+        width: width / 8,
+        height: 35
     },
     titleView: {
         flexDirection: "row",
