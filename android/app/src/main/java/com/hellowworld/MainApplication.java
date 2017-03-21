@@ -24,9 +24,10 @@ public class MainApplication extends Application implements ReactApplication {
 
     @Override
     protected List<ReactPackage> getPackages() {
+      System.out.println("return Packages");
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new BarcodeScannerPackage()
+          new BarcodeScannerPackage()
       );
     }
   };

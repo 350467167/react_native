@@ -47,12 +47,14 @@
          // 上拉 时间比firstDate大
          //formData.append();
 
-         NetUitl.postJson('http://10.0.2.2:8888/api/getListData', formData, (responseData) => {
-             this.setState({
-                 dataSource: this.state.dataSource.cloneWithRows(responseData),
-                 loaded: true
-             });
-         });
+         // NetUitl.postJson('http://10.0.2.2:8888/api/getListData', formData, (responseData) => {
+         //     this.setState({
+         //         dataSource: this.state.dataSource.cloneWithRows(responseData),
+         //         loaded: true
+         //     });
+         // });
+         this.setState({loaded: true})
+         
      }
 
      render() {

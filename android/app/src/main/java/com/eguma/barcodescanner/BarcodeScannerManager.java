@@ -21,11 +21,13 @@ public class BarcodeScannerManager extends ViewGroupManager<BarcodeScannerView> 
 
     @Override
     public String getName() {
+        System.out.println("xxx");
         return REACT_CLASS;
     }
 
     @ReactProp(name = "cameraType")
     public void setCameraType(BarcodeScannerView view, @Nullable String cameraType) {
+        System.out.println(cameraType);
       if (cameraType != null) {
           view.setCameraType(cameraType);
       }

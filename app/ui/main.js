@@ -44,13 +44,15 @@ export default class LoginActivity extends Component {
 
 
   onPressCallback = () => {
-    let formData = new FormData();
-    formData.append("id",this.userName);
-    formData.append("password",this.password);
-    let url = "http://10.0.2.2:8888/api/login";
-    NetUitl.postJson(url,formData,(responseText) => {
-          this.onLoginSuccess();
-    })
+    // let formData = new FormData();
+    // formData.append("id",this.userName);
+    // formData.append("password",this.password);
+    // let url = "http://10.0.2.2:8888/api/login";
+    // NetUitl.postJson(url,formData,(responseText) => {
+    //       this.onLoginSuccess();
+    // })
+
+    this.onLoginSuccess();
   };
 
   //跳转到第二个页面去
