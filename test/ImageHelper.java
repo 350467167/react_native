@@ -15,9 +15,8 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
-import sun.misc.BASE64Encoder;
+import org.apache.commons.codec.binary.Base64;
 
-@SuppressWarnings("restriction")
 public class ImageHelper {
 	public static class ImageReduceModel {
 		// 缩放宽度
@@ -124,7 +123,7 @@ public class ImageHelper {
 
 		try {
 			BufferedImage bufferedImage = ImageIO.read(file);
-			BASE64Encoder encoder = new BASE64Encoder();
+			Base64 encoder = new Base64();
 
 			irmList.forEach(dis -> {
 				int width = dis.getWidth();
@@ -156,7 +155,8 @@ public class ImageHelper {
 				}
 
 				byte[] bytes = baos.toByteArray();
-				result.add(encoder.encodeBuffer(bytes).trim());
+
+				result.add(encoder.encodeAsString(bytes).trim());
 			});
 		} catch (Exception e) {
 			System.out.println("scaleImageWithParams方法压缩图片时出错了");
@@ -224,8 +224,8 @@ public class ImageHelper {
 		File img = new File("C:\\Users\\naver\\Desktop\\timg.jpg");
 
 		ImageReduceModel irm1 = new ImageReduceModel();
-		irm1.setHeight(100);
-		irm1.setWidth(100);
+		irm1.setHeight(200);
+		irm1.setWidth(200);
 
 		ImageReduceModel irm2 = new ImageReduceModel();
 		irm2.setHeight(500);
