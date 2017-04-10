@@ -17,11 +17,19 @@ import javax.imageio.ImageIO;
 
 import sun.misc.BASE64Encoder;
 
+@SuppressWarnings("restriction")
 public class ImageHelper {
 	public static class ImageReduceModel {
+		// 缩放宽度
 		private int width;
+
+		// 缩放高度
 		private int height;
+
+		// 原比例不拉伸
 		private boolean auto;
+
+		// 图片格式
 		private String format;
 
 		ImageReduceModel() {
@@ -103,16 +111,12 @@ public class ImageHelper {
 		return base64;
 	}
 
-	/*** 
+	/**
 	 * 将图片缩放到指定的高度或者宽度 
-	 * @param sourceImagePath 图片源地址 
-	 * @param destinationPath 压缩完图片的地址 
-	 * @param width 缩放后的宽度 
-	 * @param height 缩放后的高度 
-	 * @param auto 是否自动保持图片的原高宽比例 
-	 * @param format 图图片格式 例如 jpg 
+	 * @param file 图片
+	 * @param irm 图片缩放格式
+	 * @return base64字符串数组
 	 */
-	@SuppressWarnings("restriction")
 	public static List<String> scaleImageWithParams(File file,
 			ImageReduceModel... irm) {
 		List<String> result = new ArrayList<>();
