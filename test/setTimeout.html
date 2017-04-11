@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>xxx</title>
+</head>
+<body>
+
+<input id='i0' type='text'  value=''/>       <br>
+<input id='i1' type='text'  value=''/>       <br>
+<input id='i2' type='text'  value=''/>       <br>
+<input id='i3' type='text'  value=''/>       <br>
+<input id='i4' type='text'  value=''/>       <br>
+<input id='i5' type='text'  value=''/>       <br>
+<input id='i6' type='text'  value=''/>       <br>
+<input id='i7' type='text'  value=''/>       <br>
+<input id='i8' type='text'  value=''/>       <br>
+<input id='i9' type='text'  value=''/>       <br>
+<input id='i10' type='text' value=''/>       <br>
+<input id='i11' type='text' value=''/>       <br>
+<input id='i12' type='text' value=''/>       <br>
+<input id='i13' type='text' value=''/>       <br>
+<input id='i14' type='text' value=''/>       <br>
+<input id='i15' type='text' value=''/>       <br>
+<input id='i16' type='text' value=''/>       <br>
+<input id='i17' type='text' value=''/>       <br>
+<input id='i18' type='text' value=''/>       <br>
+<input id='i19' type='text' value=''/>       <br>
+
+<input type='button' onclick='start()' value='Start' />
+<input type='button' onclick='stop()' value='Stop' />
+<script>
+function Loop(fun, obj, param) {
+	this.times = 0;
+	this.oldSetTimeoutId = -1;
+	this.nowSetTimeoutId = -1;
+	this.setTimeoutId = -1;
+	this.time = 1000;
+	
+	for (var property in param) {
+		this[property] = param[property];
+	}
+	
+	this.start = () => {
+		const setTimeoutId = setTimeout(() => {
+			this.times++;
+
+			if (this.times === 1 || this.times > 10) {
+				this.nowSetTimeoutId = setTimeoutId;
+				fun(this, obj);
+			}
+
+			this.start();
+		}, this.time);
+		
+		this.setTimeoutId = setTimeoutId;
+	}
+	
+	this.checkNew = () => {
+		if (this.nowSetTimeoutId > this.oldSetTimeoutId) {
+			this.oldSetTimeoutId = this.nowSetTimeoutId;
+			this.times = 0;
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	this.stop = () => {
+		clearTimeout(this.setTimeoutId);
+	}
+	
+	return {
+		start : this.start,
+		stop : this.stop,
+		checkNew : this.checkNew
+	}
+}
+
+/*-------------------------------------------------------------*/
+var tF = true;
+function ajax(loop, obj) {
+	let timeX = 1000;
+	if (obj.id === 'i5') {
+		if (tF) {
+			timeX = 5000;
+			tF = false;
+		}
+	}
+	
+	setTimeout(() => {
+		if (loop.checkNew()) {
+			document.getElementById(obj.id).value += ('-' + obj.id);
+		}
+		
+	}, timeX);
+}
+
+let loopList = [];
+function start() {
+	for (let i = 0; i < 10; i++) {
+		const loop = new Loop(ajax, {id:'i' + i}, {time:2000});
+		console.log(loop);
+		loop.start();
+		
+		loopList.push(loop);
+	}
+}
+
+function stop() {
+	loopList.forEach((loop) => {
+		loop.stop();
+	});
+}
+</script>
+</div>
+</body>
+</html>
