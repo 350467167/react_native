@@ -3,10 +3,10 @@ package com.line.lwp.admin;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
@@ -75,40 +75,40 @@ public class ImageHelper {
 	 * @param format 图片格式 例如jpg 
 	 * @return base64 base64字符串
 	 */
-	public static String scaleImage(File file, double scale, String format) {
+	/*public static String scaleImage(File file, double scale, String format) {
 		String base64 = "";
 		BufferedImage bufferedImage;
-
+	
 		try {
 			bufferedImage = ImageIO.read(file);
 			int width = bufferedImage.getWidth();
 			int height = bufferedImage.getHeight();
-
+	
 			width = parseDoubleToInt(width * scale);
 			height = parseDoubleToInt(height * scale);
-
+	
 			Image image = bufferedImage.getScaledInstance(width, height,
 					Image.SCALE_SMOOTH);
-
+	
 			BufferedImage outputImage = new BufferedImage(width, height,
 					BufferedImage.TYPE_INT_RGB);
 			Graphics graphics = outputImage.getGraphics();
 			graphics.drawImage(image, 0, 0, null);
 			graphics.dispose();
-
+	
 			OutputStream os = new ByteArrayOutputStream();
-
+	
 			ImageIO.write(outputImage, format, os);
 			base64 = os.toString();
-
+	
 			// ImageIO.write(outputImage, format, new File(destinationPath));
 		} catch (IOException e) {
 			System.out.println("scaleImage方法压缩图片时出错了");
 			e.printStackTrace();
 		}
-
+	
 		return base64;
-	}
+	}*/
 
 	/**
 	 * 将图片缩放到指定的高度或者宽度 
@@ -118,11 +118,47 @@ public class ImageHelper {
 	 */
 	public static List<String> scaleImageWithParams(File file,
 			ImageReduceModel... irm) {
-		List<String> result = new ArrayList<>();
+		List<String> result = null;
 		List<ImageReduceModel> irmList = Arrays.asList(irm);
 
 		try {
 			BufferedImage bufferedImage = ImageIO.read(file);
+			result = getBase64StringList(irmList, bufferedImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	/**
+	 * @param base64String
+	 * @param irm
+	 * @return
+	 */
+	public static List<String> scaleImageWithParams(String base64String,
+			ImageReduceModel... irm) {
+		List<String> result = null;
+		List<ImageReduceModel> irmList = Arrays.asList(irm);
+
+		byte[] bytes = Base64.decodeBase64(base64String);
+		ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+
+		try {
+			BufferedImage bufferedImage = ImageIO.read(bais);
+			result = getBase64StringList(irmList, bufferedImage);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	private static List<String> getBase64StringList(List<ImageReduceModel> irmList,
+			BufferedImage bufferedImage) {
+		List<String> result = new ArrayList<>();
+
+		try {
 			Base64 encoder = new Base64();
 
 			irmList.forEach(dis -> {
@@ -144,7 +180,13 @@ public class ImageHelper {
 				graphics.drawImage(image, 0, 0, null);
 				graphics.dispose();
 
-				// ImageIO.write(outputImage, format, new File(destinationPath));
+				/*
+				try {
+					ImageIO.write(outputImage, format, new File("C:\\Users\\naver\\Desktop\\123.jpg"));
+				} catch (IOException x) {
+					x.printStackTrace();
+				}
+				*/
 
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
@@ -210,7 +252,7 @@ public class ImageHelper {
 	 * @param b 
 	 * @return 
 	 */
-	public static double getDot2Decimal(int a, int b) {
+	private static double getDot2Decimal(int a, int b) {
 
 		BigDecimal bigDecimal_1 = new BigDecimal(a);
 		BigDecimal bigDecimal_2 = new BigDecimal(b);
@@ -227,13 +269,12 @@ public class ImageHelper {
 		irm1.setHeight(200);
 		irm1.setWidth(200);
 
-		ImageReduceModel irm2 = new ImageReduceModel();
-		irm2.setHeight(500);
-		irm2.setWidth(500);
-
-		List<String> t = ImageHelper.scaleImageWithParams(img, irm1, irm2);
-
+		List<String> t = ImageHelper.scaleImageWithParams(img, irm1);
 		t.forEach(System.out::println);
 
+		String base64String = "";
+
+		List<String> t2 = ImageHelper.scaleImageWithParams(base64String, irm1);
+		t2.forEach(System.out::println);
 	}
 }
